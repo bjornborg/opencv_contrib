@@ -64,19 +64,17 @@
 #include <nvcuvid.h>
 #endif
 
-// #ifdef _WIN32
+#ifdef _WIN32
 #define NOMINMAX
-// #include <windows.h>
-// #ifdef HAVE_NVCUVENC
-#define HAVE_NVCUVENC
-#include "NvEncoderCuda.h"
-
-// #include <NVEncoderAPI.h>
-// #endif
-// #else
+#include <windows.h>
+#ifdef HAVE_NVCUVENC
+// #include "NvEncoderCuda.h"
+#include <NVEncoderAPI.h>
+#endif
+#else
 #include <pthread.h>
 #include <unistd.h>
-// #endif
+#endif
 
 #include "cuvid_video_source.hpp"
 #include "ffmpeg_video_source.hpp"
