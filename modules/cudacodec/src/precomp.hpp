@@ -47,41 +47,44 @@
 #include <cstdlib>
 #include <cstring>
 #include <deque>
-#include <utility>
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
+#include <utility>
 
+#include "opencv2/core/private.cuda.hpp"
 #include "opencv2/cudacodec.hpp"
 #include "opencv2/videoio.hpp"
 #include "opencv2/videoio/registry.hpp"
-#include "opencv2/core/private.cuda.hpp"
 #include <opencv2/core/utils/logger.hpp>
 
 #ifdef HAVE_NVCUVID
-    #if defined(HAVE_DYNLINK_NVCUVID_HEADER)
-        #include <dynlink_nvcuvid.h>
-    #elif defined(HAVE_NVCUVID_HEADER)
-        #include <nvcuvid.h>
-    #endif
+#if defined(HAVE_DYNLINK_NVCUVID_HEADER)
+#include <dynlink_nvcuvid.h>
+#elif defined(HAVE_NVCUVID_HEADER)
+#include <nvcuvid.h>
+#endif
 
-    #ifdef _WIN32
-        #define NOMINMAX
-        #include <windows.h>
-        #ifdef HAVE_NVCUVENC
-            #include <NVEncoderAPI.h>
-        #endif
-    #else
-        #include <pthread.h>
-        #include <unistd.h>
-    #endif
+// #ifdef _WIN32
+#define NOMINMAX
+// #include <windows.h>
+// #ifdef HAVE_NVCUVENC
+#define HAVE_NVCUVENC
+#include "NvEncoderCuda.h"
 
-    #include "thread.hpp"
-    #include "video_source.hpp"
-    #include "ffmpeg_video_source.hpp"
-    #include "cuvid_video_source.hpp"
-    #include "frame_queue.hpp"
-    #include "video_decoder.hpp"
-    #include "video_parser.hpp"
+// #include <NVEncoderAPI.h>
+// #endif
+// #else
+#include <pthread.h>
+#include <unistd.h>
+// #endif
+
+#include "cuvid_video_source.hpp"
+#include "ffmpeg_video_source.hpp"
+#include "frame_queue.hpp"
+#include "thread.hpp"
+#include "video_decoder.hpp"
+#include "video_parser.hpp"
+#include "video_source.hpp"
 
 #endif
 
